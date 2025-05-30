@@ -1,0 +1,12 @@
+asgiref==3.8.1
+dj-database-url==2.3.0
+dj-email-url==1.0.6
+Django==5.2.1
+django-cache-url==3.4.5
+environs==14.2.0
+marshmallow==4.0.0
+psycopg2-binary==2.9.10
+python-dotenv==1.1.0
+sqlparse==0.5.3
+typing_extensions==4.13.2
+tzdata==2025.2
