@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    command: python /code/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code  # For local development
+    ports:
+      - 8000:8000
+    environment:
+      - "DJANGO_SECRET_KEY=${DOCKER_COMPOSE_DJANGO_SECRET_KEY}"
+      - "DJANGO_DEBUG=${DOCKER_COMPOSE_DJANGO_DEBUG}"
+      - "DATABASE_NAME=${DATABASE_NAME}"
+      - "DATABASE_USER=${DATABASE_USER}"
+      - "DATABASE_PASSWORD=${DATABASE_PASSWORD}"
+      - "DATABASE_HOST=${DATABASE_HOST}"
+      - "DATABASE_PORT=${DATABASE_PORT}"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: MYPASSWORD
+      POSTGRES_DB: store
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
