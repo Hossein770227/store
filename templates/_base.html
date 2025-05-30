@@ -3,31 +3,31 @@
 {% load i18n %}
 <html  class="no-js">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>
-      {% block page_title %}
-      {% endblock page_title %}
-    </title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicons -->
-    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{% static "img/icon.png" %}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>
+        {% block page_title %}
+        {% endblock page_title %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Favicons -->
+        <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" type="image/x-icon">
+        <link rel="apple-touch-icon" href="{% static "img/icon.png" %}">
 
-    <!-- ************************* CSS Files ************************* -->
+        <!-- ************************* CSS Files ************************* -->
 
-    <link rel="stylesheet" href="{% static "css/_base.css" %}">
+        <link rel="stylesheet" href="{% static "css/_base.css" %}">
 
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" href="{% static "css/vendor.css" %}">
+        <!-- Vendor CSS -->
+        <link rel="stylesheet" href="{% static "css/vendor.css" %}">
 
-    <!-- style css -->
-    <link rel="stylesheet" href="{% static "css/main.css" %}">
+        <!-- style css -->
+        <link rel="stylesheet" href="{% static "css/main.css" %}">
 
 
-</head>
+    </head>
 
 <body dir='rtl'>
 
@@ -93,12 +93,21 @@
                                         <i class="flaticon flaticon-user"></i>
                                     </a>
                                     <ul class="user-info-menu">
+                                        {% if user.is_authenticated %}
                                         <li>
-                                            <a class="text-right" href="my-account.html">حساب کاربری</a>
+                                            <a class="text-right" href="">{% trans "profile" %}</a>
                                         </li>
                                         <li>
-                                            <a class="text-right" href="cart.html">سبد خرید</a>
+                                            <a class="text-right" href="">{% trans "logout" %}</a>
                                         </li>
+                                        {% else %}
+                                        <li>
+                                            <a class="text-right" href="{% url "accounts:user_register" %}">{% trans "sign up" %}</a>
+                                        </li>
+                                        <li>
+                                            <a class="text-right" href="{% url "accounts:login" %}">{% trans "login" %}</a>
+                                        </li>
+                                        {% endif %}
                                         <li>
                                             <a class="text-right" href="wishlist.html">علاقه مندی ها</a>
                                         </li>
