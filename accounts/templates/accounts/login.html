@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="register-box">
                             <h4 class="heading__tertiary mb--30">{% trans "login" %}</h4>
-                            <form action='{% url "accounts:login" %}' method='POST' class="form form--login">
+                            <form action='{% url "accounts:login" %}?next={{ next_url }}' method='POST' class="form form--login">
                                 {% csrf_token %}
                                 <div class="form__group mb--20">
                                     <label class="form__label form__label--2" for="phone number">{% trans "phone number" %} <span class="required">*</span></label>

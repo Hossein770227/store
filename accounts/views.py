@@ -1,3 +1,5 @@
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 import pytz
 import random
 
@@ -88,10 +90,9 @@ class UserRegisterCodeView(View):
         
         return redirect('store:product_list') 
     
-
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = LoginForm(request.POST) 
         if form.is_valid():
             phone_number = form.cleaned_data['phone_number']
             password = form.cleaned_data['password']
@@ -103,12 +104,14 @@ def login_view(request):
                 if next_url:
                     return redirect(next_url)
                 else:
-                    return redirect('store:product_list')
+                    return redirect(reverse('store:product_list'))
             else:
-                form.add_error(None, _('phone number or password is incorrect'))
+                messages.error(request, _('Invalid phone number or password.'))
     else:
         form = LoginForm()
-    return render(request, 'accounts/login.html', {'form': form})
+        next_url = request.GET.get('next')
+
+    return render(request, 'accounts/login.html', {'form': form ,'next_url': next_url})
 
 
 def logout_view(request):

@@ -67,8 +67,8 @@
                                             </a>
                                          </li>
                                         <li class="mainmenu__item">
-                                            <a href="contact-us.html" class="mainmenu__link">
-                                                <span class="mm-text">تماس با ما</span>
+                                            <a href="{% url "website:contact_us" %}" class="mainmenu__link">
+                                                <span class="mm-text">{% trans "contact us" %}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -98,7 +98,10 @@
                                             <a class="text-right" href="">{% trans "profile" %}</a>
                                         </li>
                                         <li>
-                                            <a class="text-right" href="">{% trans "logout" %}</a>
+                                            <form action="{% url 'accounts:logout' %}" method="POST">
+                                                {% csrf_token %}
+                                                <button type="submit" class='btn'>{% trans "logout" %}</button>
+                                            </form>
                                         </li>
                                         {% else %}
                                         <li>

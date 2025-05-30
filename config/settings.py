@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 from environs import Env
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -62,6 +63,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# django debug toolbar
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS = ['127.0.0.1'] + [ip[:-1] + '1' for ip in ips]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -78,6 +83,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -144,8 +150,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # accounts config 
 AUTH_USER_MODEL = 'accounts.MyUser'
-
-# django debug toolbar
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
