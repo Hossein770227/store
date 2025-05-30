@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from django.views.generic import CreateView
 
-# Create your views here.
+from website.models import Contact
+
+class ContactUs(CreateView):
+    model = Contact
