@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     # my apps
     'accounts',
+    'store',
 
     # third party app
     'debug_toolbar',
