@@ -14,9 +14,9 @@ from datetime import datetime, timedelta
 
 from utils import send_otp_code
 
-from .models import OtpCode
+from .models import MyUser, OtpCode
 
-from .forms import UserRegisterForm, VerifyCodeForm
+from .forms import LoginForm, UserRegisterForm, VerifyCodeForm
 
 
 class UserRegisterView(View):
@@ -81,9 +81,54 @@ class UserRegisterCodeView(View):
                 code_instance.delete() 
                 messages.success(request, _('You have successfully registered.'))
                 login(request, user)  
-                return redirect('shop:product_list') 
+                return redirect('store:product_list') 
             else:
                 messages.error(request, _('This code is incorrect.'))
                 return redirect('accounts:verify_code')  
         
-        return redirect('shop:product_list') 
+        return redirect('store:product_list') 
+    
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data['phone_number']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=phone_number, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, _('You have successfully logged in.'))
+                next_url = request.GET.get('next')
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect('store:product_list')
+            else:
+                form.add_error(None, _('phone number or password is incorrect'))
+    else:
+        form = LoginForm()
+    return render(request, 'accounts/login.html', {'form': form})
+
+
+def logout_view(request):
+    if request.method =='POST':
+        logout(request)
+        messages.error(request, _('you successfully logout'))
+        return redirect('store:product_list')
+
+
+
+@login_required
+def password_change_view(request):
+    if request.method =='POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request,form.user)
+            messages.success(request, _('your password successfully changed'))
+            return redirect('store:product_list')
+        return redirect('accounts:change_password')
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request, 'accounts/password_change.html',{'form':form})
