@@ -1,0 +1,21 @@
+<style>
+    .alert {
+        padding: 3px;
+        font-size: 15px;
+        margin-bottom: 10px
+    }
+    .custom-div {
+        max-width: 300px;
+        border-radius: 8px;
+    }
+</style>
+    
+{% if messages %}
+    <div class='container'>
+        {% for message in messages %}
+            <div class='custom-div alert alert-{{message.tags}}'>
+                {{message}}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
