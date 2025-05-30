@@ -28,6 +28,21 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
         return self.full_name
 
 
+class OtpCode(models.Model):
+    phone_number = models.CharField(max_length=11)
+    code = models.PositiveSmallIntegerField()
+    date_time_created = models.DateTimeField(auto_now_add=True) 
+    expire_time = models.DateTimeField(default=timezone.now() + timedelta(minutes=2))
+
+    class Meta:
+        verbose_name = _('otp code')
+        verbose_name_plural = _('otp code')
+
+    def __str__(self):
+        return f'{self.phone_number}:{self.code}'
+
+    def is_expired(self):
+        return timezone.now() > self.expire_time
 
 
     

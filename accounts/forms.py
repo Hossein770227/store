@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import gettext_lazy as _
 
+from accounts.validators import validate_iranian_phone
+
 
 from .models import MyUser
 
@@ -36,8 +38,8 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserRegisterForm(forms.Form):
-    phone = forms.CharField(label=_('phone number'),max_length=11, required=True)
     full_name= forms.CharField(label=_('full name'),max_length=100, required=True)
+    phone = forms.CharField(label=_('phone number'),max_length=11, required=True,validators=[validate_iranian_phone])
     password1 = forms.CharField(label=_('password'),widget=forms.PasswordInput)
     password2 = forms.CharField(label=_('confirm password'),widget=forms.PasswordInput)
 
@@ -54,6 +56,18 @@ class UserRegisterForm(forms.Form):
         if cd ['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
             raise ValidationError(_("passwords dont match"))
         return cd['password2']
+
+
+class LoginForm(forms.Form):
+    phone_number = forms.CharField(
+        label=_('phone number'),
+        max_length=11, 
+        widget=forms.TextInput(attrs={'placeholder': '09xxxxxxxxx'})
+    )
+    password = forms.CharField(
+        label=_('password'),
+        widget=forms.PasswordInput
+    )
 
 
 class VerifyCodeForm(forms.Form):
