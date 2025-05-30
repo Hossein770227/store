@@ -1,1 +1,89 @@
 {% extends "_base.html" %}
+{% load i18n %}
+
+{% block page_title %}
+    {% trans "register user" %}
+{% endblock page_title %}
+
+{% block content %}
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                        <h1 class="page-title">{% trans "register" %}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+        <div class="page-content-inner pt--75 pb--80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="register-box">
+                            <h4 class="heading__tertiary mb--30">{% trans "register" %}</h4>
+                            <form action='{% url "accounts:user_register" %}' method='POST' class="form form--login">
+                                {% csrf_token %}
+                                <div class="form__group mb--20">
+                                    <label class="form__label form__label--2" for="full name">{% trans "full name" %}<span class="required">*</span></label>
+                                    <input type="text" class="form__input form__input--2" id="full name" name="full_name">
+                                    {% if form.full_name.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.full_name.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form__group mb--20">
+                                    <label class="form__label form__label--2" for="phone number">{% trans "phone number" %} <span class="required">*</span></label>
+                                    <input type="tel" class="form__input form__input--2" id="phone number" name="phone">
+                                    {% if form.phone.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.phone.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form__group mb--20">
+                                    <label class="form__label form__label--2" for="password1">{% trans "password" %} <span class="required">*</span></label>
+                                    <input type="password" class="form__input form__input--2" id="password1" name="password1">
+                                    {% if form.password1.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.password1.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form__group mb--20">
+                                    <label class="form__label form__label--2" for="password2">{% trans "confirm password" %}<span class="required">*</span></label>
+                                    <input type="password" class="form__input form__input--2" id="password2" name="password2">
+                                    {% if form.password2.errors %}
+                                        <div class="alert alert-danger">
+                                            {% for error in form.password2.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form__group">
+                                    <input type="submit" value="{% trans "submit" %}" class="btn btn-submit btn-style-1">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+{% endblock content %}

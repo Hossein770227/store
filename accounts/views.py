@@ -16,7 +16,7 @@ from utils import send_otp_code
 
 from .models import OtpCode
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, VerifyCodeForm
 
 
 class UserRegisterView(View):
@@ -43,3 +43,47 @@ class UserRegisterView(View):
             messages.success(request, _('we sent you a code'))
             return redirect('accounts:verify_code')
         return render(request, 'accounts/user_register.html', {'form':form})
+
+
+class UserRegisterCodeView(View):
+    form_class = VerifyCodeForm
+    template_name = 'accounts/verify_code.html'  
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        user_session = request.session.get('user_registration_info')
+        if not user_session:
+            messages.error(request, _('Registration information not found.'))
+            return redirect('accounts:user_register')  
+        
+        code_instance = OtpCode.objects.filter(phone_number=user_session['phone_number']).first()
+
+        if not code_instance:
+            messages.error(request, _('No code was found for this phone number.'))
+            return redirect('accounts:user_register')
+        
+        form = self.form_class(request.POST)
+        
+        if form.is_valid():
+            cd = form.cleaned_data
+            now = datetime.now(tz=pytz.timezone('Asia/Tehran'))
+            expired_time = code_instance.date_time_created + timedelta(minutes=2) 
+            
+            if now > expired_time:
+                code_instance.delete()
+                messages.error(request, _('The OTP code has expired.'))
+                return redirect('accounts:user_register')  
+            
+            if cd['code'] == code_instance.code:
+                user = MyUser.objects.create_user(user_session['phone_number'], user_session['full_name'], user_session['password'])
+                code_instance.delete() 
+                messages.success(request, _('You have successfully registered.'))
+                login(request, user)  
+                return redirect('shop:product_list') 
+            else:
+                messages.error(request, _('This code is incorrect.'))
+                return redirect('accounts:verify_code')  
+        
+        return redirect('shop:product_list') 
