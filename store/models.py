@@ -104,11 +104,11 @@ class Features(models.Model):
     
 class Comment(models.Model):
     RATING_CHOICES = [
-        (5, "⭐⭐⭐⭐⭐"),
-        (4, "⭐⭐⭐⭐"),
-        (3, "⭐⭐⭐"),
-        (2, "⭐⭐"),
-        (1, "⭐"),
+        ('5', "⭐⭐⭐⭐⭐"),
+        ('4', "⭐⭐⭐⭐"),
+        ('3', "⭐⭐⭐"),
+        ('2', "⭐⭐"),
+        ('1', "⭐"),
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE)
     product = models.ForeignKey(Product, verbose_name=_("product"), on_delete=models.CASCADE, related_name='comments')
