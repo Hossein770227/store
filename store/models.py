@@ -111,6 +111,7 @@ class Comment(models.Model):
         (1, "⭐"),
     ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, verbose_name=_("product"), on_delete=models.CASCADE, related_name='comments')
     email = models.EmailField(_("email"), max_length=254, blank=True, null=True)
     text = models.TextField(_("comment text"))
     rating = models.CharField(
