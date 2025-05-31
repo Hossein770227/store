@@ -1,8 +1,10 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.text import slugify
-from django.core.validators import  MinValueValidator
+from django.core.validators import  MinValueValidator , MaxValueValidator
+
 
 class Category(models.Model):
     title = models.CharField(_("title"), max_length=150)
@@ -35,7 +37,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = _("product")
         verbose_name_plural = _("products")
-        ordering = ['name']
+        ordering = ['-date_time_added']
         indexes = [
             models.Index(fields=['name', 'category']),
         ]
@@ -50,6 +52,9 @@ class Product(models.Model):
                 return 0 
             return ((self.main_price - self.price_with_discount) / self.main_price) * 100
         return 0
+    
+    def get_absolute_url(self):
+        return reverse('store:product_detail', args=[self.pk])
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -58,3 +63,30 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+
+class Color(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_("Color Name"))
+
+    def __str__(self):
+        return self.name
+
+
+class Features(models.Model):
+    SMALL_SIZE ='S'
+    MEDIUM_SIZE = 'M'
+    LARGE_SIZE = 'L'
+    BIG_SIZE = 'XL'
+    CHOICE_SIZE =(
+        (SMALL_SIZE, 'small'),
+        (MEDIUM_SIZE, 'medium'),
+        (LARGE_SIZE, 'large'),
+        (BIG_SIZE, 'very large')
+
+    )
+    product = models.ForeignKey(Product, verbose_name=_(""), on_delete=models.CASCADE, related_name='features')
+    weight = models.PositiveSmallIntegerField(
+                _("weight product"), 
+                validators=[MinValueValidator(1), MaxValueValidator(1000)]
+                )
+    size = models.CharField(_("size"), max_length=3, choices=CHOICE_SIZE, default=LARGE_SIZE)
+    colors = models.ManyToManyField(Color, verbose_name=_("Colors"))
