@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.text import slugify
+from django.conf import settings
 from django.core.validators import  MinValueValidator , MaxValueValidator
 
 from ckeditor.fields import RichTextField
@@ -99,3 +100,30 @@ class Features(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['product'], name='one_feature_per_product')
         ]
+
+    
+class Comment(models.Model):
+    RATING_CHOICES = [
+        (5, "⭐⭐⭐⭐⭐"),
+        (4, "⭐⭐⭐⭐"),
+        (3, "⭐⭐⭐"),
+        (2, "⭐⭐"),
+        (1, "⭐"),
+    ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE)
+    email = models.EmailField(_("email"), max_length=254, blank=True, null=True)
+    text = models.TextField(_("comment text"))
+    rating = models.CharField(
+        _("rating"),
+        max_length=10,
+        choices=RATING_CHOICES,
+        blank=True,
+        default=None,
+    )
+    is_active = models.BooleanField(_("active ?"), default=True)
+    ate_time_modified = models.DateTimeField(_("date time modified"), auto_now=True)
+    date_time_added = models.DateTimeField(_("date time added"), auto_now_add=True)
+
+    def __str__(self):
+        return self.user
+    

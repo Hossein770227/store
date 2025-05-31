@@ -53,12 +53,11 @@
                                 </button>
                             </div>
                             <div class="product-footer-meta mt-5 pt-5">
-                                <p><span class="m-0">دسته بندی ها:</span>
-                                    <a href="shop.html">لباس</a>,
-                                    <a href="shop.html">تابستانی</a>,
-                                    <a href="shop.html">گرم</a>,
-                                    <a href="shop.html">زنانه</a>
-                                </p>
+                                {% for category in categories %}
+                                    <p><span class="m-0">دسته بندی ها:</span>
+                                        <a href="">{{category.title}}</a>,
+                                    </p>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

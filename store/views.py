@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
-from .models import Features, Product
+from .models import Category, Features, Product
 
 
 class ProductList(ListView):
@@ -13,7 +13,8 @@ class ProductList(ListView):
 def product_detail_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
     features = Features.objects.filter(product=product)
-    return render(request, 'store/product_detail.html', context={'product':product,'features':features })
+    categories = Category.objects.all()
+    return render(request, 'store/product_detail.html', context={'product':product,'features':features, 'categories':categories })
     
 # class ProductDetail(DetailView):
 #     model = Product
