@@ -1,3 +1,60 @@
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext as _
+from django.utils.text import slugify
+from django.core.validators import  MinValueValidator
 
-# Create your models here.
+class Category(models.Model):
+    title = models.CharField(_("title"), max_length=150)
+    description = models.CharField(_("description for category "), max_length=255, blank=True)
+
+    class Meta:
+        verbose_name = _("Category ")
+        verbose_name_plural = _("Categories")
+        ordering = ['title'] 
+
+    def __str__(self):
+        return self.title
+    
+
+class Product(models.Model):
+    name = models.CharField(_("name product"), max_length=150)
+    slug = models.SlugField(max_length=150, unique=True, blank=True)
+    category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.PROTECT, related_name='products')
+    short_description = models.CharField(_("short description for product"), max_length=255, blank=True)
+    description = models.TextField(_("description for product"))
+    main_price = models.PositiveIntegerField(_("main price "))
+    price_with_discount = models.PositiveIntegerField(_("price with discount "), blank=True, null=True)
+    inventory = models.IntegerField(_("inventory "), validators = [MinValueValidator(0)])
+    image = models.ImageField(_("product image"), upload_to='cover/', blank=True)
+    is_special_offer = models.BooleanField(_("is special offer"), null=True, blank=True, default=False)
+
+    ate_time_modified = models.DateTimeField(_("date time modified"), auto_now=True)
+    date_time_added = models.DateTimeField(_("date time added"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("product")
+        verbose_name_plural = _("products")
+        ordering = ['name']
+        indexes = [
+            models.Index(fields=['name', 'category']),
+        ]
+
+    def clean(self):
+        if self.price_with_discount and self.price_with_discount >= self.main_price:
+            raise ValidationError(_("Discount price must be less than main price."))
+            
+    def percent_discount(self):
+        if self.price_with_discount:
+            if self.main_price == 0:
+                return 0 
+            return ((self.main_price - self.price_with_discount) / self.main_price) * 100
+        return 0
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+    

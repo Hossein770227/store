@@ -28,7 +28,8 @@ env.read_env()
 SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DJANGO_DEBUG')
+DEBUG = True
+# DEBUG = env.bool('DJANGO_DEBUG')
 
 ALLOWED_HOSTS = ['127.0.0.1',]
 
@@ -142,6 +143,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+
+# media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
