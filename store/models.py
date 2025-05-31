@@ -90,3 +90,10 @@ class Features(models.Model):
                 )
     size = models.CharField(_("size"), max_length=3, choices=CHOICE_SIZE, default=LARGE_SIZE)
     colors = models.ManyToManyField(Color, verbose_name=_("Colors"))
+
+    class Meta:
+        verbose_name = _("feature")
+        verbose_name_plural = _("features")
+        constraints = [
+            models.UniqueConstraint(fields=['product'], name='one_feature_per_product')
+        ]

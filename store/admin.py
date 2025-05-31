@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Product
+from .models import Category, Color, Features, Product
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -16,3 +16,9 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
     list_filter = ['name', 'category']
     readonly_fields = ['date_time_added', 'ate_time_modified']
+
+@admin.register(Features)
+class FeaturesAdmin(admin.ModelAdmin):
+    list_display = ['product', 'weight', 'size', ]
+
+admin.site.register(Color)
