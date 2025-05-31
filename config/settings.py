@@ -11,9 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import socket
 from pathlib import Path
 from environs import Env
-import socket
+from django.contrib.messages import constants
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,6 +52,8 @@ INSTALLED_APPS = [
 
     # third party app
     'debug_toolbar',
+    'rosetta',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +158,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # accounts config 
 AUTH_USER_MODEL = 'accounts.MyUser'
+
+LOCALE_PATHS = [
+os.path.join(BASE_DIR, 'templates/locale'),
+]
+
+# config for rosetta translate
+
+LANGUAGES =(
+    ('en', 'English'),
+    ('fa', 'Persian'),
+)
+
+# messages config
+MESSAGE_TAGS={
+    constants.ERROR:"danger",
+}

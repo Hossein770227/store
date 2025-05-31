@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
-                        <h1 class="page-title">جزئیات محصول  {{product.name}}</h1>
+                        <h1 class="page-title">{% trans "product details" %} {{product.name}}</h1>
                     </div>
                 </div>
             </div>
@@ -68,11 +68,13 @@
                         <div class="product-data-tab tab-style-3">
                             <div class="nav nav-tabs product-data-tab__head" id="product-tab" role="tablist">
                                 <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true">
-                                    <span>توضیحات محصول</span>
+                                    <span>{% trans "description product" %}</span>
                                 </a>
-                                <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true">
-                                    <span>ویژگی ها</span>
-                                </a>
+                                {% if features %}
+                                    <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true">
+                                        <span>{% trans "features" %}</span>
+                                    </a>
+                                {% endif %}
                                 <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true">
                                     <span>نظرات (۱)</span>
                                 </a>
@@ -80,37 +82,38 @@
                             <div class="tab-content product-data-tab__content" id="product-tabContent">
                                 <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
                                     <div class="product-description text-justify">
-                                        <p>{{product.description}}</p>
+                                        <p>{{product.description|safe}}</p>
                                     </div>
                                 </div>
                                 <div class="tab-pane text-right" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
                                     <div class="table-content table-responsive">
+                                        {% for feature in features %}
                                         <table class="table shop_attributes">
                                             <tbody>
                                                 <tr>
-                                                    <th>وزن</th>
-                                                    <td>۴۳۰ گرم</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>سایز</th>
-                                                    <td>XL</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>رنگ</th>
-                                                    <td>
-                                                        <a href="shop-sidebar.html">مشکی</a>,
-                                                        <a href="shop-sidebar.html">سبز</a>,
-                                                        <a href="shop-sidebar.html">قرمز</a>,
-                                                        <a href="shop-sidebar.html">نارنجی</a>,
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        <th>{% trans "weight" %}</th>
+                                                        <td>{{ feature.weight }} {% trans "gr" %}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>{% trans "size" %}</th>
+                                                        <td>{{feature.size}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>{% trans "color" %}</th>
+                                                            <td>
+                                                                {% for color in feature.colors.all %}
+                                                                    <a href="shop-sidebar.html">{{color.name}}</a>,
+                                                                {% endfor %}
+                                                            </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                                     <div class="product-reviews">
-                                        <h3 class="review__title">۱ نظر برای لباس تابستانی</h3>
+                                        <h3 class="review__title">۱ نظر برای  {{product.name}}</h3>
                                         <ul class="review__list">
                                             <li class="review__item">
                                                 <div class="review__container">

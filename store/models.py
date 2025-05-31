@@ -5,6 +5,8 @@ from django.utils.translation import gettext as _
 from django.utils.text import slugify
 from django.core.validators import  MinValueValidator , MaxValueValidator
 
+from ckeditor.fields import RichTextField
+
 
 class Category(models.Model):
     title = models.CharField(_("title"), max_length=150)
@@ -24,7 +26,7 @@ class Product(models.Model):
     slug = models.SlugField(max_length=150, unique=True, blank=True)
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.PROTECT, related_name='products')
     short_description = models.CharField(_("short description for product"), max_length=255, blank=True)
-    description = models.TextField(_("description for product"))
+    description = RichTextField()
     main_price = models.PositiveIntegerField(_("main price "))
     price_with_discount = models.PositiveIntegerField(_("price with discount "), blank=True, null=True)
     inventory = models.IntegerField(_("inventory "), validators = [MinValueValidator(0)])
@@ -83,7 +85,7 @@ class Features(models.Model):
         (BIG_SIZE, 'very large')
 
     )
-    product = models.ForeignKey(Product, verbose_name=_(""), on_delete=models.CASCADE, related_name='features')
+    product = models.ForeignKey(Product, verbose_name=_(""), on_delete=models.CASCADE, related_name='feature')
     weight = models.PositiveSmallIntegerField(
                 _("weight product"), 
                 validators=[MinValueValidator(1), MaxValueValidator(1000)]

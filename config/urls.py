@@ -9,7 +9,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', include('store.urls')),
     path('', include('website.urls')),
-    
+
+    # rosetta translate
+    path('rosetta/', include('rosetta.urls')),
 ]
 
 if settings.DEBUG:
