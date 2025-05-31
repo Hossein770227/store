@@ -52,7 +52,7 @@ class Product(models.Model):
         return 0
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
