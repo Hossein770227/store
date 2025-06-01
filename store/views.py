@@ -14,8 +14,8 @@ class ProductList(ListView):
     context_object_name = 'products'
 
 
-def product_detail_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
+def product_detail_view(request, slug):
+    product = get_object_or_404(Product, slug=slug)
     features = Features.objects.filter(product=product)
     categories = Category.objects.all()
     comments = product.comments.all()

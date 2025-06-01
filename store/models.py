@@ -24,14 +24,14 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(_("name product"), max_length=150)
-    slug = models.SlugField(max_length=150, unique=True, blank=True)
+    slug = models.SlugField(max_length=150, unique=True,allow_unicode=True, blank=True)
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.PROTECT, related_name='products')
     short_description = models.CharField(_("short description for product"), max_length=255, blank=True)
     description = RichTextField()
     main_price = models.PositiveIntegerField(_("main price "))
     price_with_discount = models.PositiveIntegerField(_("price with discount "), blank=True, null=True)
     inventory = models.IntegerField(_("inventory "), validators = [MinValueValidator(0)])
-    image = models.ImageField(_("product image"), upload_to='cover/', blank=True)
+    image = models.ImageField(_("product image"), upload_to='cover/', blank=True,)
     is_special_offer = models.BooleanField(_("is special offer"), null=True, blank=True, default=False)
 
     ate_time_modified = models.DateTimeField(_("date time modified"), auto_now=True)
@@ -57,11 +57,8 @@ class Product(models.Model):
         return 0
     
     def get_absolute_url(self):
-        return reverse('store:product_detail', args=[self.pk])
+        return reverse('store:product_detail', args=[self.slug])
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
