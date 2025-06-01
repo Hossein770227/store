@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rosetta',
     'ckeditor',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -174,3 +176,7 @@ LANGUAGES =(
 MESSAGE_TAGS={
     constants.ERROR:"danger",
 }
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

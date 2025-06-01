@@ -110,7 +110,7 @@ class Comment(models.Model):
         ('2', "⭐⭐"),
         ('1', "⭐"),
     ]
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE, related_name='comments')
     product = models.ForeignKey(Product, verbose_name=_("product"), on_delete=models.CASCADE, related_name='comments')
     email = models.EmailField(_("email"), max_length=254, blank=True, null=True)
     text = models.TextField(_("comment text"))
@@ -126,5 +126,5 @@ class Comment(models.Model):
     date_time_added = models.DateTimeField(_("date time added"), auto_now_add=True)
 
     def __str__(self):
-        return self.user
+        return self.user.full_name
     

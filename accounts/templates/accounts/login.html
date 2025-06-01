@@ -30,9 +30,9 @@
                             <h4 class="heading__tertiary mb--30">{% trans "login" %}</h4>
                             <form action='{% url "accounts:login" %}?next={{ next_url }}' method='POST' class="form form--login">
                                 {% csrf_token %}
-                                <div class="form__group mb--20">
+                                <div  class="form__group mb--20">
                                     <label class="form__label form__label--2" for="phone number">{% trans "phone number" %} <span class="required">*</span></label>
-                                    <input type="tel" class="form__input form__input--2" id="phone number" name="phone_number">
+                                    <input dir='rtl' type="tel" class="form__input form__input--2" id="phone number" name="phone_number">
                                     {% if form.phone_number.errors %}
                                         <div class="alert alert-danger">
                                             {% for error in form.phone_number.errors %}

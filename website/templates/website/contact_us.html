@@ -1,5 +1,5 @@
 {% extends "_base.html" %}
-
+{% load crispy_forms_tags %}
 {% load i18n %}
 {% block page_title %}
     {% trans "contact us" %}
@@ -29,26 +29,14 @@
                         <h2 class="heading__secondary mb--50 mb-md--35 mb-sm--20">پیام خود را به ما بگویید</h2>
 
                         <!-- Contact form Start Here -->
-                        <form class="form" action="mail.php" id="contact-form">
-                            <div class="form__group mb--20">
-                                <input type="text" id="contact_name" name="contact_name" class="form__input form__input--2" placeholder="نام*">
-                            </div>
-                            <div class="form__group mb--20">
-                                <input type="email" id="contact_email" name="contact_email" class="form__input form__input--2" placeholder="ایمیل*">
-                            </div>
-                            <div class="form__group mb--20">
-                                <input type="text" id="contact_phone" name="contact_phone" class="form__input form__input--2" placeholder="شماره تماس*">
-                            </div>
-                            <div class="form__group mb--20">
-                                <textarea class="form__input form__input--textarea" id="contact_message" name="contact_message" placeholder="پیام شما*"></textarea>
-                            </div>
-                            <div class="form__group">
-                                <button type="submut" class="btn-submit">ارسال</button>
-                            </div>
-                            <div class="form__output"></div>
+                        <form  method='POST' action="{% url "website:contact_us" %}" id="contact-form">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            
+                                <button type="submit" class="btn-submit">{% trans "submit" %}</button>
+                 
                         </form>
                         <!-- Contact form end Here -->
-
                     </div>
                     <div class="col-md-5 pl--50 pl-sm--30">
                         <h2 class="heading__secondary mb--50">اطلاعات تماس</h2>
@@ -56,17 +44,8 @@
                         <!-- Contact info widget start here -->
                         <div class="contact-info-widget mb--45">
                             <div class="contact-info">
-                                <h3 class="heading__tertiary">آدرس پستی</h3>
-                                <p>مکانی در خیابان کوچه فلان <br> ایران تهران </p>
-                            </div>
-                        </div>
-                        <!-- Contact info widget end here -->
-
-                        <!-- Contact info widget start here -->
-                        <div class="contact-info-widget mb--45">
-                            <div class="contact-info">
-                                <h3 class="heading__tertiary">شاپینگ یار</h3>
-                                <p>مکانی در خیابان کوچه فلان <br> ایران تهران </p>
+                                <h3 class="heading__tertiary">{% trans "address posts" %}</h3>
+                                <p>{% trans "pravaz street" %}<br> {% trans "iran kish island" %}</p>
                             </div>
                         </div>
                         <!-- Contact info widget end here -->
@@ -74,12 +53,12 @@
                         <!-- Contact info widget start here -->
                         <div class="contact-info-widget two-column-list sm-one-column mb--45">
                             <div class="contact-info mb-sm--35">
-                                <h3 class="heading__tertiary">شماره تماس</h3>
-                                <a href="">+98912345678</a>
+                                <h3 class="heading__tertiary">{% trans "phone number" %}</h3>
+                                <a href="">09215274489</a>
                             </div>
                             <div class="contact-info">
-                                <h3 class="heading__tertiary">ایمیل</h3>
-                                <a href="mailto:info@la-studioweb.com">info@codingyar.com</a>
+                                <h3 class="heading__tertiary">{% trans "email" %}</h3>
+                                <a href="mailto:hossein.h.a770227@gamil.com">hossein.h.a770227@gamil.com</a>
                             </div>
                         </div>
                         <!-- Contact info widget end here -->
@@ -87,7 +66,7 @@
                         <!-- Social Icons Start Here -->
                         <ul class="social social-sharing">
                             <li class="social__item">
-                                <a href="https://instagram.com/m.hadi.hajihosseini" class="social__link instagram">
+                                <a href="https://instagram.com/hossein77__________" class="social__link instagram">
                                 <i class="fa fa-instagram"></i>
                                 </a>
                             </li>
