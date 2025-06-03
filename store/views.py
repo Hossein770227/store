@@ -28,7 +28,7 @@ def product_detail_view(request, slug):
             new_comment.user = request.user
             new_comment.save()
             messages.success(request, _('comment successfully created')) 
-            return redirect("store:product_detail", pk=product.slug)
+            return redirect("store:product_detail", slug=product.slug)
         else:
             messages.error(request, _('Unfortunately, there was a problem creating the comment.')) 
 
