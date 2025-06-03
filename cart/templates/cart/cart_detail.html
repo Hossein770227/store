@@ -27,63 +27,64 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 mb-md--50">
-                        <form class="cart-form" action="#">
-                            <div class="row no-gutters">
-                                <div class="col-12">
-                                    <div class="table-content table-responsive">
-                                        {% if cart %}
-                                            <table class="table text-center">
-                                                <thead>
+                        <div class="row no-gutters">
+                            <div class="col-12">
+                                <div class="table-content table-responsive">
+                                    {% if cart %}
+                                        <table class="table text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>&nbsp;</th>
+                                                    <th>{% trans "product image" %}</th>
+                                                    <th>{% trans "product name" %}</th>
+                                                    <th>{% trans "price" %}</th>
+                                                    <th>{% trans "quantity" %}</th>
+                                                    <th>{% trans "total" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in cart %}
                                                     <tr>
-                                                        <th>&nbsp;</th>
-                                                        <th>{% trans "product image" %}</th>
-                                                        <th>{% trans "product name" %}</th>
-                                                        <th>{% trans "price" %}</th>
-                                                        <th>{% trans "quantity" %}</th>
-                                                        <th>{% trans "total" %}</th>
+                                                        <td class="product-remove text-left"><a href="{% url "cart:cart_remove" item.product_obj.pk %}"><i class="flaticon flaticon-cross"></i></a></td>
+                                                        <td class="product-thumbnail text-left">
+                                                            <img src="{{item.product_obj.image.url}}" alt="{{item.product_obj.name}}">
+                                                        </td>
+                                                        <td class="product-name wide-column">
+                                                            <h3>
+                                                                <a href="{{item.product_obj.get_absolute_url}}">{{item.product_obj.name}}</a>
+                                                            </h3>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span class="product-price-wrapper">
+                                                                <span class="money">{{item.product_obj.main_price}}  {% trans "$" %}</span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="product-quantity">
+                                                            <div class="quantity">
+                                                                <input type="number" class="quantity-input" name="qty" id="qty-1" value="{{item.quantity}}" min="1">
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-total-price">
+                                                            <span class="product-price-wrapper">
+                                                                <span class="money">{{item.total_price}} {% trans "$" %}</span>
+                                                            </span>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for item in cart %}
-                                                        <tr>
-                                                            <td class="product-remove text-left"><a href=""><i class="flaticon flaticon-cross"></i></a></td>
-                                                            <td class="product-thumbnail text-left">
-                                                                <img src="{{item.product_obj.image.url}}" alt="{{item.product_obj.name}}">
-                                                            </td>
-                                                            <td class="product-name wide-column">
-                                                                <h3>
-                                                                    <a href="{{item.product_obj.get_absolute_url}}">{{item.product_obj.name}}</a>
-                                                                </h3>
-                                                            </td>
-                                                            <td class="product-price">
-                                                                <span class="product-price-wrapper">
-                                                                    <span class="money">{{item.product_obj.main_price}}  {% trans "$" %}</span>
-                                                                </span>
-                                                            </td>
-                                                            <td class="product-quantity">
-                                                                <div class="quantity">
-                                                                    <input type="number" class="quantity-input" name="qty" id="qty-1" value="{{item.quantity}}" min="1">
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-total-price">
-                                                                <span class="product-price-wrapper">
-                                                                    <span class="money">{{item.total_price}} {% trans "$" %}</span>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        {% endif %}
-                                    </div>  
-                                </div>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% endif %}
+                                </div>  
                             </div>
-                            <div class="row no-gutters border-top pt--20 mt--20">
-                                <div class="col-sm-6 text-sm-right">
+                        </div>
+                        <div class="row no-gutters border-top pt--20 mt--20">
+                            <div class="col-sm-6 text-sm-right">
+                                <form action='{% url "cart:cart_clear" %}' method='POST'>
+                                    {% csrf_token %}
                                     <button type="submit" class="cart-form__btn">خالی کردن سبد خرید</button>
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="cart-collaterals">
