@@ -23,7 +23,7 @@ class Category(models.Model):
     
 
 class Product(models.Model):
-    name = models.CharField(_("name product"), max_length=150)
+    name = models.CharField(_("name product"), max_length=100)
     slug = models.SlugField(max_length=150, unique=True,allow_unicode=True, blank=True)
     category = models.ForeignKey(Category, verbose_name=_("category"), on_delete=models.PROTECT, related_name='products')
     short_description = models.CharField(_("short description for product"), max_length=255, blank=True)
