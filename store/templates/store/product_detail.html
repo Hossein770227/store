@@ -43,16 +43,19 @@
                                     <span class="money old-price text-danger">{{product.price_with_discount}} {% trans "$" %}</span>
                                 {% endif %}
                             </div>
-                            <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
-                                <div class="quantity-wrapper d-flex justify-content-start">
-                                    <div class="quantity">
-                                        <input type="number" class="quantity-input" name="qty" id="qty" value="1" min="1">
+                            <form action="{% url "cart:cart_add" product.pk %}" method='POST'>
+                                {% csrf_token %}
+                                <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
+                                    <div class="quantity-wrapper d-flex justify-content-start">
+                                        <div class="quantity">
+                                            <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1">
+                                        </div>
                                     </div>
+                                    <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">
+                                        {% trans "add to cart" %}
+                                    </button>
                                 </div>
-                                <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='cart.html'">
-                                    اضافه به سبد خرید
-                                </button>
-                            </div>
+                            </form>
                             <div class="product-footer-meta mt-5 pt-5">
                                 {% for category in categories %}
                                     <p><span class="m-0">دسته بندی ها:</span>
