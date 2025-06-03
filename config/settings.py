@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'store',
     'website',
     'cart',
+    'dashboard',
 
     # third party app
     'debug_toolbar',
