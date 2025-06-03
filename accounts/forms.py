@@ -3,9 +3,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import gettext_lazy as _
 
-from accounts.validators import validate_iranian_phone
-
-
+from .validators import validate_iranian_phone
 from .models import MyUser
 
 class UserCreationForm(forms.ModelForm):

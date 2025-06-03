@@ -1,23 +1,20 @@
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+
 import pytz
 import random
 
-from django.views import View
+from datetime import datetime, timedelta
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.utils.translation import gettext as _
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-
-from datetime import datetime, timedelta
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.views import View
 
 from utils import send_otp_code
-
 from .models import MyUser, OtpCode
-
 from .forms import LoginForm, UserRegisterForm, VerifyCodeForm
 
 
@@ -52,6 +49,10 @@ class UserRegisterCodeView(View):
     template_name = 'accounts/verify_code.html'  
     def get(self, request):
         form = self.form_class()
+        user_session = request.session.get('user_registration_info')
+        if not user_session:
+            messages.error(request, _('Registration information not found.'))
+            return redirect('accounts:user_register')  
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
