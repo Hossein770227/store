@@ -8,9 +8,19 @@ from store.models import Product
 from .forms import AddToCartProductForm
 from .cart import Cart
 
-def cart_detail(request):
+def cart_detail_view(request):
     cart = Cart(request)
-    return render(request, 'cart/cart_detail.html', context={'cart':cart})
+
+    for item in cart:
+        item['product_update_quantity_form'] = AddToCartProductForm(initial={
+            'quantity': item['quantity'],
+            'inplace': True,
+        })
+
+    return render(request, 'cart/cart_detail.html', {
+        'cart': cart,
+    })
+
 
 
 

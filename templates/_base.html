@@ -75,7 +75,7 @@
                                 <li class="header-toolbar__item mini-cart-item">
                                     <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
                                         <i class="flaticon flaticon-shopping-cart"></i>
-                                        <sup class="mini-cart-count">2</sup>
+                                        <sup class="mini-cart-count">{{cart|length}}</sup>
                                     </a>
                                 </li>
                                 <li class="header-toolbar__item user-info">
@@ -129,6 +129,7 @@
         {% include "includes/messages.html" %}
         {% block content %}
         {% endblock content %}
+        {% include "includes/mini_cart.html" %}
 
         {% include "includes/footer.html" %}
         {% include "includes/search.html" %}
