@@ -10,8 +10,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext as _
 from django.views import View
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import check_password
 
 from utils import send_otp_code
 from .models import MyUser, OtpCode
@@ -90,29 +93,23 @@ class UserRegisterCodeView(View):
                 return redirect('accounts:verify_code')  
         
         return redirect('store:product_list') 
-    
+
+
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST) 
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            phone_number = form.cleaned_data['phone_number']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=phone_number, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, _('You have successfully logged in.'))
-                next_url = request.GET.get('next')
-                if next_url:
-                    return redirect(next_url)
-                else:
-                    return redirect(reverse('store:product_list'))
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, _('You have successfully logged in.'))
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
             else:
-                messages.error(request, _('Invalid phone number or password.'))
+                return redirect('store:product_list')
     else:
-        form = LoginForm()
-        next_url = request.GET.get('next')
-
-    return render(request, 'accounts/login.html', {'form': form ,'next_url': next_url})
+        form = AuthenticationForm()
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 def logout_view(request):

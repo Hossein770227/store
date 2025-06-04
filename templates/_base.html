@@ -85,7 +85,7 @@
                                     <ul class="user-info-menu">
                                         {% if user.is_authenticated %}
                                         <li>
-                                            <a class="text-right" href="">{% trans "profile" %}</a>
+                                            <a class="text-right" href="{% url "dashboard:profile" %}">{% trans "profile" %}</a>
                                         </li>
                                         <li>
                                             <form action="{% url 'accounts:logout' %}" method="POST">

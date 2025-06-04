@@ -24,6 +24,12 @@ class MyUser(AbstractBaseUser,PermissionsMixin):
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['full_name']
 
+    def get_by_phone(phone):
+        try:
+            return MyUser.objects.get(phone_number=phone)
+        except MyUser.DoesNotExist:
+            return None
+
     def __str__(self):
         return self.full_name
 
