@@ -12,7 +12,7 @@ class ProductList(ListView):
     model = Product
     template_name= 'store/product_list.html'
     context_object_name = 'products'
-    paginate_by = 3
+    paginate_by = 8
 
 
 def product_detail_view(request, slug):

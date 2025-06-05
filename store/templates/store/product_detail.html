@@ -42,8 +42,10 @@
                                 {% if product.price_with_discount %}
                                      <span class="money text-success">{{product.price_with_discount|translate_number|intcomma:False}} {% trans "$" %}</span>
                                     <span class="price-separator">-</span>
-                                {% endif %}
                                     <span class="money old-price text-danger">{{product.main_price|translate_number|intcomma:False}} {% trans "$" %}</span>
+                                {% else %}
+                                <span class="money text-success">{{product.main_price|translate_number|intcomma:False}} {% trans "$" %}</span>
+                                {% endif %}
                             </div>
                             <form action="{% url "cart:cart_add" product.pk %}" method='POST'>
                                 {% csrf_token %}

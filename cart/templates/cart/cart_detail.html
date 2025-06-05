@@ -57,9 +57,16 @@
                                                             </h3>
                                                         </td>
                                                         <td class="product-price">
-                                                            <span class="product-price-wrapper">
-                                                                <span class="money">{{item.product_obj.price_with_discount|translate_number|intcomma:False}}  {% trans "$" %}</span>
-                                                            </span>
+                                                            {% if item.product_obj.price_with_discount %}
+                                                                <span class="product-price-wrapper">
+                                                                    <span class="money">{{item.product_obj.price_with_discount|translate_number|intcomma:False}}  {% trans "$" %}</span>
+                                                                </span>
+                                                            {% else %}
+                                                                <span class="product-price-wrapper">
+                                                                    <span class="money">{{item.product_obj.main_price|translate_number|intcomma:False}}  {% trans "$" %}</span>
+                                                                </span>
+
+                                                            {% endif %}
                                                         </td>
                                                         <td class="product-quantity">
                                                             <form class="d-flex" method="POST" action="{% url 'cart:cart_add' item.product_obj.pk %}">

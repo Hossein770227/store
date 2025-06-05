@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-05 13:20+0330\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: .\cart.py:36
+msgid "Product successfully added to cart"
+msgstr ""
+
+#: .\cart.py:48
+msgid "Product successfully removed from cart"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:7
+msgid "cart detail"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:40
+msgid "product image"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:41
+msgid "product name"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:42
+msgid "price"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:43
+msgid "quantity"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:44
+msgid "total"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:61 .\templates\cart\cart_detail.html:82
+#: .\templates\cart\cart_detail.html:116
+msgid "$"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:98
+msgid "clear cart"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:103
+msgid "your cart is empty pleas add some product to cart"
+msgstr ""
+
+#: .\templates\cart\cart_detail.html:104
+msgid "go to shop"
+msgstr ""
+
+#: .\views.py:66
+msgid "All products successfully removed from your cart"
+msgstr ""
+
+#: .\views.py:68
+msgid "Your cart is already empty"
+msgstr ""

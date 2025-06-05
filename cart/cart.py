@@ -64,7 +64,10 @@ class Cart:
             cart[str(product.id)]['product_obj'] = product
 
         for item in cart.values():
-            item['total_price'] = item['product_obj'].price_with_discount * item['quantity']
+            if item['product_obj'].price_with_discount:
+                item['total_price']= item['quantity'] * item['product_obj'].price_with_discount
+            else:
+                item['total_price']= item['quantity'] * item['product_obj'].main_price
             yield item
 
     def __len__(self):
@@ -77,7 +80,14 @@ class Cart:
     def get_total_price(self):
         product_ids = self.cart.keys()
 
-        return sum(item['quantity'] * item['product_obj'].price_with_discount for item in self.cart.values())
+        price = 0
+        for item in self.cart.values():
+            if item['product_obj'].price_with_discount:
+                price += item['quantity'] * item['product_obj'].price_with_discount
+            else:
+                price += item['quantity'] * item['product_obj'].main_price
+        return int(price)
+
 
     def is_empty(self):
         if self.cart:
