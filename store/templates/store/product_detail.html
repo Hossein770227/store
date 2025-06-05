@@ -1,6 +1,8 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load translate %}
+{% load humanize %}
 
 {% block page_title %}
     {% trans "product list" %}
@@ -38,10 +40,10 @@
                             </p>
                             <div class="my-5 py-5 product-price-wrapper mb--25">
                                 {% if product.price_with_discount %}
-                                     <span class="money text-success">{{product.price_with_discount}} {% trans "$" %}</span>
+                                     <span class="money text-success">{{product.price_with_discount|translate_number|intcomma:False}} {% trans "$" %}</span>
                                     <span class="price-separator">-</span>
                                 {% endif %}
-                                    <span class="money old-price text-danger">{{product.main_price}} {% trans "$" %}</span>
+                                    <span class="money old-price text-danger">{{product.main_price|translate_number|intcomma:False}} {% trans "$" %}</span>
                             </div>
                             <form action="{% url "cart:cart_add" product.pk %}" method='POST'>
                                 {% csrf_token %}
@@ -79,7 +81,7 @@
                                     </a>
                                 {% endif %}
                                 <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true">
-                                    <span>نظرات ({{comments.count}})</span>
+                                    <span>نظرات ({{comments.count|translate_number}})</span>
                                 </a>
                             </div>
                             <div class="tab-content product-data-tab__content" id="product-tabContent">
@@ -95,7 +97,7 @@
                                             <tbody>
                                                 <tr>
                                                         <th>{% trans "weight" %}</th>
-                                                        <td>{{ feature.weight }} {% trans "gr" %}</td>
+                                                        <td>{{ feature.weight|translate_number }} {% trans "gr" %}</td>
                                                     </tr>
                                                     <tr>
                                                         <th>{% trans "size" %}</th>

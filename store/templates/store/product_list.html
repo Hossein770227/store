@@ -1,5 +1,9 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load translate %}
+{% load humanize %}
+
+
 
 {% block page_title %}
     {% trans "product list" %}
@@ -17,7 +21,7 @@
                                 <div class="col-lg-12 mb-md--50 mb-xs--10">
                                     <div class="shop-toolbar__left d-flex align-items-sm-center align-items-start flex-sm-row flex-column">
                                         <p class="product-pages">
-                                            {% trans "show" %} {{ page_obj.number }} {% trans "from" %} {{ page_obj.paginator.num_pages }}
+                                            {% trans "show" %} {{ page_obj.number|translate_number }} {% trans "from" %} {{ page_obj.paginator.num_pages|translate_number }}
                                         </p>
                                     </div>
                                 </div>
@@ -57,13 +61,14 @@
                                                             <a href="{{ product.get_absolute_url }}">{{product.name}}</a>
                                                         </h3>
                                                         <div class="product-price-wrapper mb--30">
-                                                            <span class="money text-success">{{product.price_with_discount}} {% trans "$" %}</span>
-                                                            {% if product.price_with_discount %}
+
+                                                            <span class="money text-success">{{product.price_with_discount|translate_number|intcomma:False}} {% trans "$" %}</span>
+                                                            {% if product.main_price %}
                                                                 <span class="money-separator">-</span>
                                                                 <span class="old-price text-danger">
-                                                                    <span class="money text-danger">{{product.main_price}} {% trans "$" %}</span>
+                                                                {% endif %}
+                                                                    <span class="money text-danger">{{product.main_price|translate_number|intcomma:False}} {% trans "$" %}</span>
                                                                 </span>
-                                                            {% endif %}
                                                         </div>
                                                         <form action="{% url "cart:cart_add" product.pk %}" method='POST'>
                                                             {% csrf_token %}
@@ -91,9 +96,9 @@
                                 {% for num in page_obj.paginator.page_range %}
                                     <li>
                                         {% if page_obj.number == num %}
-                                            <span class="current page-number">{{ num }}</span>
+                                            <span class="current page-number">{{ num|translate_number }}</span>
                                         {% else %}
-                                            <a href="?page={{ num }}" class="page-number">{{ num }}</a>
+                                            <a href="?page={{ num }}" class="page-number">{{ num|translate_number }}</a>
                                         {% endif %}
                         
                                     </li>
