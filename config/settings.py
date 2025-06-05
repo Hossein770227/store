@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'cart',
     'dashboard',
     'orders',
+    'persian_translate',
 
     # third party app
     'debug_toolbar',
