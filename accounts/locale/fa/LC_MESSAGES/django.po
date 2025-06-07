@@ -9,151 +9,153 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-05 13:20+0330\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-06-05 14:38+0330\n"
+"Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.10.2\n"
+
 #: .\forms.py:39 .\models.py:12 .\templates\accounts\user_register.html:34
 msgid "full name"
-msgstr ""
+msgstr "نام کامل"
 
 #: .\forms.py:40 .\forms.py:61 .\models.py:11
 #: .\templates\accounts\user_register.html:45
 msgid "phone number"
-msgstr ""
+msgstr "شماره تلفن"
 
 #: .\forms.py:41 .\forms.py:66 .\templates\accounts\user_register.html:56
 msgid "password"
-msgstr ""
+msgstr "رمز عبور"
 
 #: .\forms.py:42 .\templates\accounts\user_register.html:67
 msgid "confirm password"
-msgstr ""
+msgstr "رمز عبور را تأیید کنید"
 
 #: .\forms.py:49
 msgid "This phone number already exists"
-msgstr ""
+msgstr "این شماره تلفن از قبل وجود دارد"
 
 #: .\forms.py:55
 msgid "passwords dont match"
-msgstr ""
+msgstr "رمزهای عبور مطابقت ندارند"
 
 #: .\managers.py:8
 msgid "The Phone Number must be set"
-msgstr ""
+msgstr "شماره تلفن باید تنظیم شود"
 
 #: .\managers.py:10
 msgid "The Full Name must be set"
-msgstr ""
+msgstr "نام کامل باید تنظیم شود"
 
 #: .\managers.py:27
 msgid "Superuser must have is_staff=True."
-msgstr ""
+msgstr "کاربر ارشد باید دارای مقدار is_staff=True باشد"
 
 #: .\managers.py:29
 msgid "Superuser must have is_superuser=True."
-msgstr ""
+msgstr "کاربر ارشد باید دارای مقدار is_superuser=True باشد."
 
 #: .\models.py:19 .\models.py:20
 msgid "my users"
-msgstr ""
+msgstr "کاربران من"
 
 #: .\models.py:44 .\models.py:45 .\templates\accounts\verify_code.html:34
 msgid "otp code"
-msgstr ""
+msgstr "کد OTP"
 
 #: .\templates\accounts\login.html:6 .\templates\accounts\login.html:16
 #: .\templates\accounts\login.html:31
 msgid "login"
-msgstr ""
+msgstr "ورود"
 
 #: .\templates\accounts\login.html:37
 #: .\templates\accounts\password_change.html:67
 #: .\templates\accounts\user_register.html:78
 #: .\templates\accounts\verify_code.html:46
 msgid "submit"
-msgstr ""
+msgstr "ارسال"
 
 #: .\templates\accounts\password_change.html:5
 #: .\templates\accounts\password_change.html:15
 #: .\templates\accounts\password_change.html:30
 msgid "password change"
-msgstr ""
+msgstr "تغییر رمز عبور"
 
 #: .\templates\accounts\password_change.html:34
 msgid "old password"
-msgstr ""
+msgstr "رمز عبور قدیمی"
 
 #: .\templates\accounts\password_change.html:45
 msgid "new password"
-msgstr ""
+msgstr "رمز عبور جدید"
 
 #: .\templates\accounts\password_change.html:56
 msgid "confirm new password"
-msgstr ""
+msgstr "رمز عبور جدید را تأیید کنید"
 
 #: .\templates\accounts\user_register.html:5
 msgid "register user"
-msgstr ""
+msgstr "ثبت نام کاربر"
 
 #: .\templates\accounts\user_register.html:15
 #: .\templates\accounts\user_register.html:30
 msgid "register"
-msgstr ""
+msgstr "ثبت نام"
 
 #: .\templates\accounts\verify_code.html:5
 msgid "verify code"
-msgstr ""
+msgstr "کد را تأیید کنید"
 
 #: .\templates\accounts\verify_code.html:15
 #: .\templates\accounts\verify_code.html:30
 msgid "verify"
-msgstr ""
+msgstr "تأیید"
 
 #: .\validators.py:11
 msgid "Enter a valid Iranian cellphone number."
-msgstr ""
+msgstr "یک شماره تلفن همراه معتبر ایرانی وارد کنید."
 
 #: .\views.py:35
 msgid "we send your code already"
-msgstr ""
+msgstr "ما کد شما را قبلاً ارسال کرده‌ایم"
 
 #: .\views.py:45
 msgid "we sent you a code"
-msgstr ""
+msgstr "ما برای شما کد ارسال کردیم"
 
 #: .\views.py:57 .\views.py:64
 msgid "Registration information not found."
-msgstr ""
+msgstr "اطلاعات ثبت نام یافت نشد."
 
 #: .\views.py:70
 msgid "No code was found for this phone number."
-msgstr ""
+msgstr "هیچ کدی برای این شماره تلفن یافت نشد."
 
 #: .\views.py:82
 msgid "The OTP code has expired."
-msgstr ""
+msgstr "کد OTP منقضی شده است."
 
 #: .\views.py:88
 msgid "You have successfully registered."
-msgstr ""
+msgstr "شما با موفقیت ثبت نام کردید."
 
 #: .\views.py:92
 msgid "This code is incorrect."
-msgstr ""
+msgstr "این کد اشتباه است."
 
 #: .\views.py:104
 msgid "You have successfully logged in."
-msgstr ""
+msgstr "شما با موفقیت وارد سیستم شدید."
 
 #: .\views.py:118
 msgid "you successfully logout"
-msgstr ""
+msgstr "شما با موفقیت از سیستم خارج شدید"
 
 #: .\views.py:130
 msgid "your password successfully changed"
-msgstr ""
+msgstr "رمز عبور شما با موفقیت تغییر کرد"

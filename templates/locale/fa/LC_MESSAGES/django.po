@@ -9,46 +9,48 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-05 13:20+0330\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-06-05 14:29+0330\n"
+"Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.10.2\n"
+
 #: .\_base.html:57
 msgid "home"
-msgstr ""
+msgstr "صفحه اصلی "
 
 #: .\_base.html:62 .\includes\footer.html:15
 msgid "contact us"
-msgstr ""
+msgstr "تماس باما "
 
 #: .\_base.html:89
 msgid "profile"
-msgstr ""
+msgstr "پروفایل"
 
 #: .\_base.html:94
 msgid "logout"
-msgstr ""
+msgstr "خروج"
 
 #: .\_base.html:99
 msgid "sign up"
-msgstr ""
+msgstr "ثبت نام "
 
 #: .\_base.html:102
 msgid "login"
-msgstr ""
+msgstr "ورود"
 
 #: .\includes\mini_cart.html:8
 msgid "cart"
-msgstr ""
+msgstr "سبد خرید "
 
 #: .\includes\mini_cart.html:26
 msgid "$"
-msgstr ""
+msgstr "تومان "
 
 #: .\includes\mini_cart.html:38
 msgid " see cart"
-msgstr ""
+msgstr "رفتن به سبد خرید "

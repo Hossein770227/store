@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-05 13:20+0330\n"
-"PO-Revision-Date: 2025-06-05 13:28+0330\n"
+"PO-Revision-Date: 2025-06-05 14:27+0330\n"
 "Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -85,7 +85,7 @@ msgstr "محصولات"
 
 #: .\models.py:50
 msgid "Discount price must be less than main price."
-msgstr ""
+msgstr "قیمت با تخفیف باید کمتر از قیمت اصلی باشد"
 
 #: .\models.py:68
 msgid "Color Name"

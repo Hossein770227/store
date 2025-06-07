@@ -1,3 +1,18 @@
 from django.db import models
+from django.conf import settings
+from django.utils.translation import gettext as _
 
-# Create your models here.
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE, related_name='orders')
+    first_name = models.CharField(_("first name"), max_length=150)
+    last_name = models.CharField(_("last name"), max_length=150)
+    address = models.CharField(_("address"), max_length=500)
+    order_notes = models.TextField(_("order notes"), blank=True, null=True)
+    is_paid = models.BooleanField(_("is paid?"), default=False)
+    date_time_created = models.DateTimeField(_("date time created"), auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.date_time_created}"
+    
+
