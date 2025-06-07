@@ -7,6 +7,7 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("user"), on_delete=models.CASCADE, related_name='orders')
     first_name = models.CharField(_("first name"), max_length=150)
     last_name = models.CharField(_("last name"), max_length=150)
+    email = models.EmailField(_("email"), max_length=254, blank=True, null=True)
     address = models.CharField(_("address"), max_length=500)
     order_notes = models.TextField(_("order notes"), blank=True, null=True)
     is_paid = models.BooleanField(_("is paid?"), default=False)

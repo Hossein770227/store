@@ -1,4 +1,96 @@
 {% extends "_base.html" %}
+{% load i18n %}
+{% load translate %}
+{% load humanize %}
+{% load crispy_forms_tags %}
 
 {% block page_title %}
 {% endblock page_title %}
+
+{% block content %}
+    
+    <!-- Breadcrumb area Start -->
+    <div class="breadcrumb-area bg-color ptb--90" data-bg-color="#f6f6f6">
+    <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center flex-sm-row flex-column">
+                <h1 class="page-title">{% trans "order" %}</h1>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- Breadcrumb area End -->
+
+    <!-- Main Content Wrapper Start -->
+    <div class="main-content-wrapper">
+    <div class="page-content-inner">
+    <div class="container">
+        <div class="row pt--50 pt-md--40 pt-sm--20"></div>
+        <div class="row pb--80 pb-md--60 pb-sm--40">
+            <!-- Checkout Area Start -->  
+            <div class="col-lg-6">
+                <div class="checkout-title mt--10">
+                    <h2>{% trans "order details" %}</h2>
+                </div>
+                <div class="checkout-form">
+                <form action='' method='POST'>
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <button class='btn' type='submit'>{% trans "submit" %}</button>
+                </form>
+                </div>
+            </div>
+            <div class="col-xl-5 offset-xl-1 col-lg-6 mt-md--40">
+                <div class="order-details">
+                    <div class="checkout-title mt--10">
+                        <h2>{% trans "your order" %}</h2>
+                    </div>
+                    <div class="table-content table-responsive mb--30">
+                        <table class="table order-table order-table-2">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "product" %}</th>
+                                    <th class="text-right">{% trans "total price" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart %}
+                                    <tr>
+                                        <th>{{item.product_obj.name}}
+                                            <strong><span>&#10005;</span>{{item.quantity|translate_number}}</strong>
+                                        </th>
+                                        <td class="text-right">{{item.total_price|translate_number|intcomma:False}} {% trans "$" %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr class="cart-subtotal">
+                                    <th>{% trans "total" %}</th>
+                                    <td class="text-right">{{cart.get_total_price|translate_number|intcomma:False}} {% trans "$" %}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="checkout-payment">
+                        <h2 class="py-5">روش پرداخت</h2>
+                        <form action="#" class="payment-form">
+                            <div class="payment-group mb--10">
+                                <div class="payment-radio">
+                                    <input type="radio" value="bank" name="payment-method" id="bank" checked>
+                                    <label class="payment-label" for="cheque">درگاه آنلاین زرین پال</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Checkout Area End -->
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- Main Content Wrapper Start -->
+
+{% endblock content %}
