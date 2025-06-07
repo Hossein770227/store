@@ -1,4 +1,5 @@
 {% extends "_base.html" %}
+{% load jalali_tags %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load translate %}
@@ -132,15 +133,15 @@
                                                                         <strong class="review__author px-4">{{comment.user.full_name}}</strong>
                                                                         {% if comment.ate_time_modified %}
                                                                         <span class="review__dash">-</span>
-                                                                        <span class="review__published-date">{{comment.ate_time_modified}}</span>
+                                                                        <span class="review__published-date">{{comment.ate_time_modified|to_jalali:'%y/%B/%d'}}</span>
                                                                         {% else %}
                                                                         <span class="review__dash">-</span>
-                                                                        <span class="review__published-date">{{comment.date_time_added}}</span>
+                                                                        <span class="review__published-date">{{comment.date_time_added|to_jalali:'%y/%B/%d'}}</span>
                                                                         {% endif %}
                                                                     </div>
                                                                     <div class="product-rating">
                                                                        <div>
-                                                                            <span>{{ comment.rating }} {% trans "form" %}<strong class="rating">5 </strong></span>
+                                                                            <span>{{ comment.rating }} <strong class="rating">5 </strong>{% trans "form" %}</span>
                                                                         </div>
 
                                                                     </div>

@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    # jalali date
+    'jalali_date',
+
     # my apps
     'accounts',
     'store',
@@ -56,7 +59,7 @@ INSTALLED_APPS = [
     'persian_translate',
     'payment',
 
-    # third party app
+    # third party apps
     'debug_toolbar',
     'rosetta',
     'ckeditor',
@@ -92,6 +95,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'cart.context_processors.cart',
+
             ],
         },
     },
