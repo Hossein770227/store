@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'dashboard',
     'orders',
     'persian_translate',
+    'payment',
 
     # third party app
     'debug_toolbar',
