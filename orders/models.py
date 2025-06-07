@@ -16,3 +16,12 @@ class Order(models.Model):
         return f"{self.first_name} {self.last_name} - {self.date_time_created}"
     
 
+class OrderItems(models.Model):
+    order = models.ForeignKey(Order, verbose_name=_("order"), on_delete=models.PROTECT, related_name='items')
+    product = models.ForeignKey("store.Product", verbose_name=_("product"), on_delete=models.CASCADE, related_name='orders')
+    quantity = models.PositiveSmallIntegerField(_("quantity"), default=1)
+    price = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.product} - {self.quantity}"
+    
