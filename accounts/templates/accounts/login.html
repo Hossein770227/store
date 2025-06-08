@@ -1,6 +1,7 @@
 {% extends "_base.html" %}
 {% load crispy_forms_tags %}
 {% load i18n %}
+{% load bootstrap %}
 
 {% block page_title %}
     {% trans "login" %}
@@ -29,10 +30,9 @@
                     <div class="col-md-6">
                         <div class="register-box">
                             <h4 class="heading__tertiary mb--30">{% trans "login" %}</h4>
-                            <form action='{% url "accounts:login" %}?next={{ next_url }}' method='POST' class="form form--login">
+                            <form action='' method='POST' class="form form--login">
                                 {% csrf_token %}
-                                {{form|crispy}}
-
+                                {{form|bootstrap_horizontal:'col-lg-5'}}
                                 <div class="form__group">
                                     <input type="submit" value="{% trans "submit" %}" class="btn btn-submit btn-style-1">
                                 </div>

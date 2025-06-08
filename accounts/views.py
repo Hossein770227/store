@@ -97,19 +97,27 @@ class UserRegisterCodeView(View):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request, _('You have successfully logged in.'))
-            next_url = request.GET.get('next')
-            if next_url:
-                return redirect(next_url)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                next_url = request.GET.get('next')
+                if next_url:
+                    messages.success(request, _('You have successfully logged in.'))
+                    return  redirect(next_url)
+                else:
+                    messages.success(request, _('You have successfully logged in.'))
+                    return redirect('store:product_list')
             else:
-                return redirect('store:product_list')
+                messages.warning(request, _("this phone number does not exist please already registered"))
+                return redirect('store:product_list') 
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})
+
 
 
 def logout_view(request):

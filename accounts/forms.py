@@ -56,17 +56,5 @@ class UserRegisterForm(forms.Form):
         return cd['password2']
 
 
-class LoginForm(forms.Form):
-    phone_number = forms.CharField(
-        label=_('phone number'),
-        max_length=11, 
-        widget=forms.TextInput(attrs={'placeholder': '09xxxxxxxxx'})
-    )
-    password = forms.CharField(
-        label=_('password'),
-        widget=forms.PasswordInput
-    )
-
-
 class VerifyCodeForm(forms.Form):
     code =forms.IntegerField()

@@ -30,6 +30,10 @@ def contact_us_view(request):
     return render(request, 'website/contact_us.html', {'form':form_message})
 
 
+
+
+
+
 @require_GET
 def search(request):
     query = request.GET.get('q')
