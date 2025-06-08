@@ -32,11 +32,11 @@
                 </ul>
                 <div class="mini-cart__total">
                     <span>جمع کل</span>
-                    <span class="ammount">{{cart.get_total_price}} تومان</span>
+                    <span class="ammount">{{cart.get_total_price}} {% trans "$" %}</span>
                 </div>
                 <div class="mini-cart__buttons">
                     <a href="{% url "cart:cart_detail" %}" class="btn btn-fullwidth btn-bg-sand mb--20">{% trans " see cart" %}</a>
-                    <a href="checkout.html" class="btn btn-fullwidth btn-bg-sand">پرداخت</a>
+                    <a href="{% url "orders:order_create" %}" class="btn btn-fullwidth btn-bg-sand">{% trans "checkout" %}</a>
                 </div>
             </div>
         </div>

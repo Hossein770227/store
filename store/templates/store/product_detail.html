@@ -63,7 +63,7 @@
                             </form>
                             <div class="product-footer-meta mt-5 pt-5">
                                 {% for category in categories %}
-                                    <p><span class="m-0">دسته بندی ها:</span>
+                                    <p><span class="m-0">{% trans "categories" %}:</span>
                                         <a href="">{{category.title}}</a>,
                                     </p>
                                 {% endfor %}
@@ -167,7 +167,7 @@
                                                             <div class="form__group">
                                                                 <div class="form-row">
                                                                     <div class="col-12">
-                                                                        <input type="submit" value="ارسال" class="btn-submit">
+                                                                        <input type="submit" value="{% trans "send" %}" class="btn-submit">
                                                                     </div>
                                                                 </div>
                                                             </div>

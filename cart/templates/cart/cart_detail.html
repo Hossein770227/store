@@ -117,7 +117,7 @@
                                 <div class="cart-calculator">
                                     <div class="cart-calculator__item">
                                         <div class="cart-calculator__item--head">
-                                            <span>مجموع</span>
+                                            <span>{% trans "total" %}</span>
                                         </div>
                                         <div class="cart-calculator__item--value">
                                             <span>{{cart.get_total_price|translate_number|intcomma:False}} {% trans "$" %}</span>
