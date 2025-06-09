@@ -13,6 +13,10 @@ class Order(models.Model):
     is_paid = models.BooleanField(_("is paid?"), default=False)
     date_time_created = models.DateTimeField(_("date time created"), auto_now_add=True)
 
+    class Meta:
+        verbose_name = _("order")
+        verbose_name_plural = _("orders")
+
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.date_time_created}"
     
@@ -22,6 +26,14 @@ class OrderItems(models.Model):
     product = models.ForeignKey("store.Product", verbose_name=_("product"), on_delete=models.CASCADE, related_name='orders')
     quantity = models.PositiveSmallIntegerField(_("quantity"), default=1)
     price = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name = _("order items")
+        verbose_name_plural = _("order items")
+
+    def get_total_price(self):
+        return self.quantity * self.price
+    
 
     def __str__(self):
         return f"{self.product} - {self.quantity}"

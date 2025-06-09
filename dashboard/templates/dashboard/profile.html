@@ -1,5 +1,8 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load jalali_tags %}
+{% load translate %}
+{% load humanize %}
 
 {% block page_title %}
     {% trans "profile" %}
@@ -29,7 +32,7 @@
                             <div class="user-dashboard-tab flex-column flex-md-row">
                                 <div class="user-dashboard-tab__head nav flex-md-column" role="tablist" aria-orientation="vertical">
                                     <a class="nav-link active" data-toggle="pill" role="tab" href="#dashboard" aria-controls="dashboard" aria-selected="true">پیشخوان</a>
-                                    <a class="nav-link" data-toggle="pill" role="tab" href="#orders" aria-controls="orders" aria-selected="true">تاریخچه سفارشات</a>
+                                    <a class="nav-link" data-toggle="pill" role="tab" href="#orders" aria-controls="orders" aria-selected="true">{% trans "history orders" %}</a>
                                     <a class="nav-link" data-toggle="pill" role="tab" href="#addresses" aria-controls="addresses" aria-selected="true">علاقه مندی ها</a>
                                     <a class="nav-link" data-toggle="pill" role="tab" href="#accountdetails" aria-controls="accountdetails" aria-selected="true">جزئیات پروفایل</a>
                                     <form action="{% url 'accounts:logout' %}" method="POST">
@@ -39,8 +42,8 @@
                                 </div>
                                 <div class="user-dashboard-tab__content tab-content p-4">
                                     <div class="tab-pane fade show active" id="dashboard">
-                                        <p>سلام <strong>Hadi</strong></p>
-                                        <p>از منوی این قسمت میتوانید اطلاعات خودتان را بررسی کنید.</p>
+                                        <p>{% trans "Hello" %} <strong>{{user.full_name}}</strong></p>
+                                        <p>{% trans "You can check your information from the menu in this section." %}</p>
                                     </div>
                                     <div class="tab-pane fade" id="orders">
                                         <div class="message-box mb--30 d-none">
@@ -51,28 +54,26 @@
                                             <table class="table text-center">
                                                 <thead>
                                                     <tr>
-                                                        <th>شماره سفارش</th>
-                                                        <th>تاریخ</th>
-                                                        <th>وضعیت</th>
+                                                        <th>{% trans "order number" %}</th>
+                                                        <th>{% trans "date time" %}</th>
+                                                        <th>{% trans "status" %}</th>
                                                         <th>جمع کل</th>
-                                                        <th>عملیات</th>
+                                                        <th>{% trans "Operation" %}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td class="wide-column">۲ شهریور ۱۴۰۲</td>
-                                                        <td>در حال بررسی</td>
-                                                        <td class="wide-column">۱,۲۱۳,۰۰۰ تومان</td>
-                                                        <td><a href="product-details.html" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">نمایش</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td class="wide-column">September 19, 2018</td>
-                                                        <td>Processing</td>
-                                                        <td class="wide-column">$49.00 for 1 item</td>
-                                                        <td><a href="product-details.html" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">View</a></td>
-                                                    </tr>
+                                                    {% for order in orders %}
+                                                        <tr>
+                                                            <td>{{order.id|translate_number}}</td>
+                                                            <td class="wide-column">{{order.date_time_created|to_jalali:'%Y/%m/%d'|translate_number }}</td>
+                                                            <td>{{order.is_paid}}</td>
+                                                            {% for item in order.items.all %}
+                                                                <td class="wide-column">{{item.get_total_price|translate_number|intcomma:False}} {% trans "$" %}</td>
+                                                            {% endfor %}
+                                                            <td><a href="product-details.html" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans "view" %}</a></td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>

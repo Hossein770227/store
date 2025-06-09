@@ -9,16 +9,13 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext as _
 from django.views import View
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import check_password
 
 from utils import send_otp_code
 from .models import MyUser, OtpCode
-from .forms import LoginForm, UserRegisterForm, VerifyCodeForm
+from .forms import UserRegisterForm, VerifyCodeForm
 
 
 class UserRegisterView(View):

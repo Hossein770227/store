@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-05 13:20+0330\n"
-"PO-Revision-Date: 2025-06-05 14:38+0330\n"
+"PO-Revision-Date: 2025-06-08 17:07+0330\n"
 "Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -34,7 +34,7 @@ msgstr "رمز عبور"
 
 #: .\forms.py:42 .\templates\accounts\user_register.html:67
 msgid "confirm password"
-msgstr "رمز عبور را تأیید کنید"
+msgstr "گذرواژه  را تأیید کنید"
 
 #: .\forms.py:49
 msgid "This phone number already exists"
