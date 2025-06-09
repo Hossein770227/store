@@ -27,3 +27,8 @@ class TestContactUsView(TestCase):
         self.assertEqual(response.status_code,302)
         self.assertRedirects(response, reverse('store:product_list'))
 
+class SearchTest(TestCase):
+    def test_search_view(self):
+        response = self.client.get(reverse("website:search"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'website/search_results.html')
