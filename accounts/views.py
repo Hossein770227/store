@@ -46,14 +46,13 @@ class UserRegisterView(View):
 
 class UserRegisterCodeView(View):
     form_class = VerifyCodeForm
-    template_name = 'accounts/verify_code.html'  
     def get(self, request):
         form = self.form_class()
         user_session = request.session.get('user_registration_info')
         if not user_session:
             messages.error(request, _('Registration information not found.'))
             return redirect('accounts:user_register')  
-        return render(request, self.template_name, {'form': form})
+        return render(request, 'accounts/verify_code.html', context={'form': form})
 
     def post(self, request):
         user_session = request.session.get('user_registration_info')
@@ -113,7 +112,7 @@ def login_view(request):
                 return redirect('store:product_list') 
     else:
         form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+    return render(request, 'accounts/login.html', context={'form': form})
 
 
 
