@@ -18,6 +18,7 @@ idna==3.10
 jalali_core==1.0.0
 jdatetime==5.2.0
 marshmallow==4.0.0
+model-bakery==1.20.5
 pillow==11.2.1
 polib==1.2.0
 psycopg2-binary==2.9.10
