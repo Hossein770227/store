@@ -1,7 +1,9 @@
 
 import pytz
+import secrets
 import random
 
+from django.urls import reverse
 from datetime import datetime, timedelta
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -12,10 +14,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import gettext as _
 from django.views import View
+from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password 
+
 
 from utils import send_otp_code
 from .models import MyUser, OtpCode
-from .forms import ForgetPasswordPhoneForm, UserRegisterForm, VerifyCodeForm 
+from .forms import ForgotPasswordForm, ResetPasswordForm, UserRegisterForm, VerifyCodeForm 
 
 
 class UserRegisterView(View):
@@ -139,12 +144,67 @@ def password_change_view(request):
     return render(request, 'accounts/password_change.html',{'form':form})
 
 
+def forgot_password(request):
+    if request.method == 'POST':
+        form = ForgotPasswordForm(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data['phone_number']
 
-class ForgetPassword(View):
-    def get(self, request):
-        form = ForgetPasswordPhoneForm
-        return render(request, 'accounts/forget_password_phone.html',{'form':form})
-    
-    def post(self, request):
-        pass
+            User = get_user_model() 
+            try:
+                user = User.objects.get(phone_number=phone_number)
+            except User.DoesNotExist:
+                messages.error(request, "این شماره تلفن در سیستم ثبت نشده است.")
+                return render(request, 'forgot_password.html', {'form': form})
 
+            random_code = random.randint(1000, 9999)
+            send_otp_code(phone_number, random_code)
+            OtpCode.objects.create(phone_number=phone_number, code=random_code)
+
+            request.session['reset_phone'] = str(phone_number) 
+            request.session['reset_code'] = random_code 
+            messages.success(request, "کد تایید به شماره تلفن شما ارسال شد.")
+            return redirect(reverse('accounts:reset_password')) 
+
+    else:
+        form = ForgotPasswordForm()
+    return render(request, 'accounts/forgot_password.html', {'form': form})
+
+
+
+def reset_password(request):
+    if request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            new_password = form.cleaned_data['new_password1']
+
+            reset_phone = request.session.get('reset_phone') 
+            reset_code = request.session.get('reset_code') 
+
+            if not reset_phone or not reset_code:
+                messages.error(request, "درخواست نامعتبر است. لطفا دوباره تلاش کنید.")
+                return redirect(reverse('accounts:forgot_password'))
+            if str(code) == str(reset_code):
+                User = get_user_model()
+                try:
+                    user = User.objects.get(phone_number=reset_phone)
+                except User.DoesNotExist:
+                    messages.error(request, "کاربر یافت نشد.")
+                    return render(request, 'reset_password.html', {'form': form}) 
+
+                user.password = make_password(new_password) 
+                user.save()
+
+        
+                del request.session['reset_phone']
+                del request.session['reset_code']
+                update_session_auth_hash(request, user)
+                messages.success(request, "رمز عبور شما با موفقیت تغییر یافت.")
+                return redirect('accounts:login')  
+            else:
+                messages.error(request, "کد تایید صحیح نیست.")
+
+    else:
+        form = ResetPasswordForm()
+    return render(request, 'accounts/reset_password.html', {'form': form})

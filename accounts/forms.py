@@ -60,5 +60,21 @@ class VerifyCodeForm(forms.Form):
     code =forms.IntegerField()
 
 
-class ForgetPasswordPhoneForm(forms.Form):
-    phone = forms.CharField(label=_('phone number'),max_length=11, required=True,validators=[validate_iranian_phone])
+
+
+class ForgotPasswordForm(forms.Form):
+    phone_number = forms.CharField(label=_('phone number'),max_length=11, required=True,validators=[validate_iranian_phone])
+
+
+class ResetPasswordForm(forms.Form):
+    code = forms.CharField(label="کد تایید")
+    new_password1 = forms.CharField(widget=forms.PasswordInput, label="رمز عبور جدید")
+    new_password2 = forms.CharField(widget=forms.PasswordInput, label="تکرار رمز عبور جدید")
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password1 = cleaned_data.get("new_password1")
+        new_password2 = cleaned_data.get("new_password2")
+
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("رمزهای عبور باید یکسان باشند.")
