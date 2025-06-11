@@ -11,7 +11,9 @@ class Order(models.Model):
     address = models.CharField(_("address"), max_length=500)
     order_notes = models.TextField(_("order notes"), blank=True, null=True)
     zarinpal_authority = models.CharField( max_length=255, blank=True)
+    ref_id = models.CharField( max_length=255, blank=True)
     is_paid = models.BooleanField(_("is paid?"), default=False)
+    data = models.TextField(blank=True, null=True)
     date_time_created = models.DateTimeField(_("date time created"), auto_now_add=True)
 
     class Meta:
