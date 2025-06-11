@@ -164,11 +164,29 @@ def forgot_password(request):
             request.session['reset_phone'] = str(phone_number) 
             request.session['reset_code'] = random_code 
             messages.success(request, "کد تایید به شماره تلفن شما ارسال شد.")
-            return redirect(reverse('accounts:reset_password')) 
+            return redirect(reverse('accounts:verify_code_forgot_password')) 
 
     else:
         form = ForgotPasswordForm()
     return render(request, 'accounts/forgot_password.html', {'form': form})
+
+
+def verify_code_forgot_password(request):
+    if request.method == 'POST':
+        form = VerifyCodeForm(request.POST)
+        if form.is_valid():
+            reset_phone = request.session.get('reset_phone') 
+            reset_code = request.session.get('reset_code') 
+            
+            code = form.cleaned_data['code']
+            if not reset_phone or not reset_code:
+                messages.error(request, "درخواست نامعتبر است. لطفا دوباره تلاش کنید.")
+                return redirect(reverse('accounts:forgot_password'))
+            if str(code) == str(reset_code):
+                return redirect('accounts:reset_password')
+    else:
+        form = VerifyCodeForm()
+    return render(request, 'accounts/verify_code_forgot_password.html', {'form': form})
 
 
 
@@ -176,34 +194,26 @@ def reset_password(request):
     if request.method == 'POST':
         form = ResetPasswordForm(request.POST)
         if form.is_valid():
-            code = form.cleaned_data['code']
-            new_password = form.cleaned_data['new_password1']
-
             reset_phone = request.session.get('reset_phone') 
-            reset_code = request.session.get('reset_code') 
+            new_password = form.cleaned_data['new_password1']
+            User = get_user_model()
+            try:
+                user = User.objects.get(phone_number=reset_phone)
+            except User.DoesNotExist:
+                messages.error(request, "کاربر یافت نشد.")
+                return render(request, 'reset_password.html', {'form': form}) 
 
-            if not reset_phone or not reset_code:
-                messages.error(request, "درخواست نامعتبر است. لطفا دوباره تلاش کنید.")
-                return redirect(reverse('accounts:forgot_password'))
-            if str(code) == str(reset_code):
-                User = get_user_model()
-                try:
-                    user = User.objects.get(phone_number=reset_phone)
-                except User.DoesNotExist:
-                    messages.error(request, "کاربر یافت نشد.")
-                    return render(request, 'reset_password.html', {'form': form}) 
+            user.password = make_password(new_password) 
+            user.save()
 
-                user.password = make_password(new_password) 
-                user.save()
-
-        
-                del request.session['reset_phone']
-                del request.session['reset_code']
-                update_session_auth_hash(request, user)
-                messages.success(request, "رمز عبور شما با موفقیت تغییر یافت.")
-                return redirect('accounts:login')  
-            else:
-                messages.error(request, "کد تایید صحیح نیست.")
+    
+            del request.session['reset_phone']
+            del request.session['reset_code']
+            update_session_auth_hash(request, user)
+            messages.success(request, "رمز عبور شما با موفقیت تغییر یافت.")
+            return redirect('accounts:login')  
+        else:
+            messages.error(request, "کد تایید صحیح نیست.")
 
     else:
         form = ResetPasswordForm()

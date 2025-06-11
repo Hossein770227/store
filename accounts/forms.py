@@ -67,7 +67,6 @@ class ForgotPasswordForm(forms.Form):
 
 
 class ResetPasswordForm(forms.Form):
-    code = forms.CharField(label="کد تایید")
     new_password1 = forms.CharField(widget=forms.PasswordInput, label="رمز عبور جدید")
     new_password2 = forms.CharField(widget=forms.PasswordInput, label="تکرار رمز عبور جدید")
 
