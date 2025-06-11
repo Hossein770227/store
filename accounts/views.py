@@ -15,7 +15,7 @@ from django.views import View
 
 from utils import send_otp_code
 from .models import MyUser, OtpCode
-from .forms import UserRegisterForm, VerifyCodeForm
+from .forms import ForgetPasswordPhoneForm, UserRegisterForm, VerifyCodeForm 
 
 
 class UserRegisterView(View):
@@ -137,3 +137,14 @@ def password_change_view(request):
     else:
         form = PasswordChangeForm(user=request.user)
     return render(request, 'accounts/password_change.html',{'form':form})
+
+
+
+class ForgetPassword(View):
+    def get(self, request):
+        form = ForgetPasswordPhoneForm
+        return render(request, 'accounts/forget_password_phone.html',{'form':form})
+    
+    def post(self, request):
+        pass
+

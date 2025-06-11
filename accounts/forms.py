@@ -58,3 +58,7 @@ class UserRegisterForm(forms.Form):
 
 class VerifyCodeForm(forms.Form):
     code =forms.IntegerField()
+
+
+class ForgetPasswordPhoneForm(forms.Form):
+    phone = forms.CharField(label=_('phone number'),max_length=11, required=True,validators=[validate_iranian_phone])

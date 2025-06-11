@@ -12,6 +12,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('profile/', include('dashboard.urls')),
     path("order/",include('orders.urls')),
+    path('payment/', include('payment.urls')),
     # rosetta translate
     path('rosetta/', include('rosetta.urls')),
 ]

@@ -27,6 +27,8 @@ def order_create_view(request):
                     price = product.main_price
                 )
             cart.clear()
+            request.session['order_id']= order_obj.id
+            return redirect('payment:payment_process')
     else:
         order_form = OrderForm()
     return render(request, 'order/order_create.html',{'form':order_form})
